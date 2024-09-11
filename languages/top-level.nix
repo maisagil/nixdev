@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./rust/rust.nix
+  ];
+}

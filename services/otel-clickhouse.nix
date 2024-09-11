@@ -1,18 +1,22 @@
-{ lib, config, ... }: {
-  options = {
-    enable_otel = lib.mkEnableOption "Enable this module";
-    enable_collector = lib.mkOption {
+{ lib, config, ... }:
+let
+  cfg = config.custom;
+in
+{
+  options.custom.otel = {
+    enable = lib.mkEnableOption "Enable this module";
+    collector.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Enable OTEL collector.";
     };
-    enable_clickhouse = lib.mkOption {
+    clickhouse.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Enable clickhouse service.";
     };
   };
-  config = lib.mkIf config.enable_otel {
+  config = lib.mkIf cfg.otel.enable {
     # Enable exponential histograms.
     env.OTEL_EXPORTER_OTLP_METRICS_DEFAULT_HISTOGRAM_AGGREGATION = "BASE2_EXPONENTIAL_BUCKET_HISTOGRAM";
 
@@ -43,7 +47,7 @@
     env.DB_UI_CLICKHOUSE_LOCAL = "clickhouse://localhost/otel";
 
     services = {
-      clickhouse = lib.mkIf config.enable_collector {
+      clickhouse = lib.mkIf cfg.otel.clickhouse.enable {
         enable = true;
         config = ''
           users:
@@ -62,7 +66,7 @@
               password: "123123"
         '';
       };
-      opentelemetry-collector = lib.mkIf config.enable_clickhouse {
+      opentelemetry-collector = lib.mkIf cfg.otel.collector.enable {
         enable = true;
         settings = {
           receivers = {
@@ -136,7 +140,7 @@
         };
       };
     };
-    processes.opentelemetry-collector = lib.mkIf config.enable_clickhouse {
+    processes.opentelemetry-collector = lib.mkIf cfg.otel.clickhouse.enable {
       process-compose.depends_on.clickhouse-server.condition = "process_healthy";
     };
   };

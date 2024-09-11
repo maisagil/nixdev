@@ -46,6 +46,8 @@ in
 
     env.DB_UI_CLICKHOUSE_LOCAL = "clickhouse://localhost/otel";
 
+    env.OTEL_SERVICE_NAME = "${cfg.common.project_name}_devenv";
+
     services = {
       clickhouse = lib.mkIf cfg.otel.clickhouse.enable {
         enable = true;

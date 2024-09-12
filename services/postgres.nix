@@ -18,10 +18,10 @@ in
     };
     env = {
       DATABASE_URL = lib.mkDefault "postgres://${config.env.PGUSER}:${config.env.PGPASSWORD}@${lib.escapeURL config.env.DEVENV_RUNTIME}%2fpostgres";
-      "DB_UI_${cfg.common.project_name}_local" = config.env.DATABASE_URL;
-      PGUSER = db_user;
-      PGPASSWORD = db_pass;
-      PGDATABASE = cfg.common.project_name;
+      "DB_UI_${cfg.common.project_name}_local" = lib.mkDefault config.env.DATABASE_URL;
+      PGUSER = lib.mkDefault db_user;
+      PGPASSWORD = lib.mkDefault db_pass;
+      PGDATABASE = lib.mkDefault cfg.common.project_name;
     };
   };
 }

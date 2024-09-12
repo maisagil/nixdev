@@ -25,7 +25,8 @@ in
   config =
     {
       # Environment variables for all services.
-      env.APP_ENVIRONMENT = cfg.common.environment;
+      env.APP_ENVIRONMENT = lib.mkDefault cfg.common.environment;
+      env.NODE_ENV = lib.mkDefault cfg.common.environment;
 
       # https://devenv.sh/packages/
       packages = [

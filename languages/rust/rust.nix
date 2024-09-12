@@ -20,12 +20,11 @@ in
     ];
 
     # Languages
-    languages.rust = {
+    languages.rust = lib.mkDefault {
       enable = true;
       channel = "nightly";
       rustflags = "-Z threads=8";
     };
-    languages.nix.enable = true;
 
     scripts.run_tests.exec = "cargo watch -x 'nextest run'";
 

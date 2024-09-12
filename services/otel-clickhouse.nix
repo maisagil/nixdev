@@ -18,35 +18,35 @@ in
   };
   config = lib.mkIf cfg.otel.enable {
     # Enable exponential histograms.
-    env.OTEL_EXPORTER_OTLP_METRICS_DEFAULT_HISTOGRAM_AGGREGATION = "BASE2_EXPONENTIAL_BUCKET_HISTOGRAM";
+    env.OTEL_EXPORTER_OTLP_METRICS_DEFAULT_HISTOGRAM_AGGREGATION = lib.mkDefault "BASE2_EXPONENTIAL_BUCKET_HISTOGRAM";
 
     # Prefer delta temporality.
-    env.OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE = "DELTA";
+    env.OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE = lib.mkDefault "DELTA";
 
     # Maximum allowed time to export data in milliseconds.
-    env.OTEL_BSP_EXPORT_TIMEOUT = 10000;
+    env.OTEL_BSP_EXPORT_TIMEOUT = lib.mkDefault 10000;
 
     # Maximum batch size.
     # Using larger batch sizes can be problematic,
     # because Uptrace rejects requests larger than 20MB.
-    env.OTEL_BSP_MAX_EXPORT_BATCH_SIZE = 10000;
+    env.OTEL_BSP_MAX_EXPORT_BATCH_SIZE = lib.mkDefault 10000;
 
     # Maximum queue size.
     # Increase queue size if you have lots of RAM, for example,
     # `10000 * number_of_gigabytes`.
-    env.OTEL_BSP_MAX_QUEUE_SIZE = 30000;
+    env.OTEL_BSP_MAX_QUEUE_SIZE = lib.mkDefault 30000;
 
     # Max concurrent exports.
     # Setting this to the number of available CPUs might be a good idea.
-    env.OTEL_BSP_MAX_CONCURRENT_EXPORTS = 2;
+    env.OTEL_BSP_MAX_CONCURRENT_EXPORTS = lib.mkDefault 2;
 
     # Enable gzip compression.
     # Server don't support apparently
-    env.OTEL_EXPORTER_OTLP_COMPRESSION = "gzip";
+    env.OTEL_EXPORTER_OTLP_COMPRESSION = lib.mkDefault "gzip";
 
-    env.DB_UI_CLICKHOUSE_LOCAL = "clickhouse://localhost/otel";
+    env.DB_UI_CLICKHOUSE_LOCAL = lib.mkDefault "clickhouse://localhost/otel";
 
-    env.OTEL_SERVICE_NAME = "${cfg.common.project_name}_devenv";
+    env.OTEL_SERVICE_NAME = lib.mkDefault "${cfg.common.project_name}_devenv";
 
     services = {
       clickhouse = lib.mkIf cfg.otel.clickhouse.enable {

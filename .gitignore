@@ -1,1 +1,4 @@
 .devenv
+devenv.local.nix
+
+unencrypted_*_secrets.yaml

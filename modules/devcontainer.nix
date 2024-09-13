@@ -2,6 +2,7 @@
   devcontainer = {
     enable = true;
     settings = {
+      image = "ghcr.io/cachix/devenv:v1.0.5"; # fix container version
       features = {
         "ghcr.io/devcontainers/features/sshd:1".version = "latest";
       };

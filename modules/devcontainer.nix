@@ -31,6 +31,7 @@
           "documentationUrl" = "https://github.com/getsops/sops";
         };
       };
+      "updateContentCommand" = "";
     };
   };
 }

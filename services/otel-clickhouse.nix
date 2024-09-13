@@ -47,6 +47,7 @@ in
     env.DB_UI_CLICKHOUSE_LOCAL = lib.mkDefault "clickhouse://localhost/otel";
 
     env.OTEL_SERVICE_NAME = lib.mkDefault "${cfg.common.project_name}_devenv";
+    env.OTEL_RESOURCE_ATTRIBUTES = lib.mkDefault "deployment.environment=devenv"; # for uptrace deployment
 
     services = {
       clickhouse = lib.mkIf cfg.otel.clickhouse.enable {

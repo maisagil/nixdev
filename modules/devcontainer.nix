@@ -24,6 +24,7 @@
           };
         };
       };
+      "postCreateCommand" = "git config --global url.\"https://github.com/maisagil\".insteadOf ssh://git@github.com/maisagil"; # codespace authorizes our org by https not ssh
     };
   };
 }

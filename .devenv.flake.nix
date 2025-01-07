@@ -1,7 +1,7 @@
 {
   inputs =
     let
-      version = "1.3.0";
+      version = "1.3.1";
 system = "x86_64-linux";
 devenv_root = "/home/eloback/projects/work/nixdev";
 devenv_dotfile = ./.devenv;
@@ -22,7 +22,7 @@ devenv_istesting = false;
 
       outputs = { nixpkgs, ... }@inputs:
         let
-          version = "1.3.0";
+          version = "1.3.1";
 system = "x86_64-linux";
 devenv_root = "/home/eloback/projects/work/nixdev";
 devenv_dotfile = ./.devenv;

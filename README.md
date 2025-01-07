@@ -48,3 +48,7 @@ example of usage in your flake:
     };
 }
 ```
+
+## Common Problems
+* wrong DEVENV_RUNTIME in DATABASE_URL
+just run "devenv update" don't ask why

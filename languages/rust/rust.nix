@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.custom;
 in
@@ -14,7 +19,6 @@ in
   };
   config = lib.mkIf cfg.rust.enable {
     packages = [
-      pkgs.cargo-watch
       pkgs.sqlx-cli
       pkgs.cargo-nextest
     ];
@@ -28,10 +32,17 @@ in
 
     scripts.run_tests.exec = "cargo watch -x 'nextest run'";
 
-    pre-commit.hooks = {
+    git-hooks.hooks = {
       rustfmt = {
         enable = true;
         files = "\.rs$";
+      };
+      clippy = {
+        enable = true;
+        settings = {
+          denyWarnings = true;
+          allFeatures = true;
+        };
       };
     };
   };

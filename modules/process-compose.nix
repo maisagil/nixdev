@@ -1,19 +1,8 @@
-# NOTE: add this to your `devenv.yaml` to enable unstable features.
-# nixpkgs-unstable:
-#   url: github:NixOS/nixpkgs/nixos-unstable
 {
-  pkgs,
-  inputs,
-  lib,
   ...
 }:
-let
-  pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
-in
 {
   process.managers.process-compose = {
-    # NOTE: fix so that the "ready_log_line" feature works.
-    package = pkgs-unstable.process-compose;
     settings = {
       fields_order = [
         "time"

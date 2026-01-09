@@ -4,12 +4,6 @@
 {
   process.managers.process-compose = {
     settings = {
-      fields_order = [
-        "time"
-        "process"
-        "level"
-        "message"
-      ];
       log_location = ".devenv/process-compose.log";
       log_configuration = {
         disable_json = true;
